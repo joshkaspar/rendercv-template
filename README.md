@@ -3,15 +3,15 @@ A GitHub template repository for rendering a professional PDF résumé from a YA
 ---
 
 > [!NOTE]
-> This is a thin workflow wrapper around [RenderCV](https://rendercv.com), which is the tool actually doing the work. The schema, the renderer, the output quality — all theirs. If this template is useful to you, the underlying project is what made it possible.
+> This is a thin workflow wrapper around [rendercv](https://github.com/rendercv/rendercv), which is the tool actually doing the work. The schema, renderer, and output quality are all the work of [Sina Atalay](https://github.com/sinaatalay) and the other contributors to that project. If this template is useful to you, the underlying project is what made it possible.
 
 ## Quickstart
 
 ### 1. Use this template
 
-Click **"Use this template"** (the green button at the top of this page on GitHub) and create your own repository.
+[**Use this template**](https://github.com/joshkaspar/rendercv-template/generate) (the green button at the top-right when you're logged in) to create your own repository.
 
-> [WARNING]
+> [!WARNING]
 > Don't forget to **make it private** — your resume.yaml will contain your phone number and email address, which you probably don't want out in the open and indexed by search engines.
 
 ### 2. Edit `resume.yaml`
@@ -48,6 +48,4 @@ The web app offers things this template cannot:
 - **Live preview** — make a change and it appears in the preview window instantly. 
 - **PDF Import** - drop your old résumé in, a slick modern version comes out.
 - **Browser-native autocomplete** — schema validation and field suggestions without any editor setup
-- **AI agent** — describe your experience in plain language and it structures the YAML for you
-- **No GitHub account required** — works entirely in the browser
-	
+- **AI agent** — describe your experience in plain language and it structures the YAML for you	
