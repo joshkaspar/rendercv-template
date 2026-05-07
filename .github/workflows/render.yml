@@ -1,0 +1,91 @@
+name: Render Resume
+
+# This workflow is triggered manually from the Actions tab.
+# Edit resume.yaml, click "Run workflow", then download the PDF from the release.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write  # needed to create GitHub Releases
+
+jobs:
+  render:
+    name: Render PDF and publish release
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the repo ──────────────────────────────────────────────
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # ── 2. Install RenderCV ───────────────────────────────────────────────
+      # pipx is pre-installed on GitHub-hosted Ubuntu runners.
+      # Pinning to a specific version keeps builds reproducible; bump as needed.
+      - name: Install RenderCV
+        run: pipx install "rendercv[full]"
+
+      # ── 3. Render ─────────────────────────────────────────────────────────
+      # Capture stdout+stderr so we can surface errors in the job summary.
+      # `set +e` lets us inspect the exit code ourselves instead of failing
+      # immediately — that way the summary step always runs.
+      - name: Render resume.yaml
+        id: render
+        run: |
+          set +e
+          rendercv render resume.yaml > render_output.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      # ── 4a. On failure: write error to the job summary ────────────────────
+      # The summary appears directly in the Actions UI — no log-diving needed.
+      - name: Write failure summary
+        if: steps.render.outputs.exit_code != '0'
+        run: |
+          {
+            echo "## Render failed"
+            echo ""
+            echo "RenderCV exited with code \`${{ steps.render.outputs.exit_code }}\`."
+            echo "Fix the error in \`resume.yaml\` and re-run the workflow."
+            echo ""
+            echo "### Error output"
+            echo '```'
+            cat render_output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # Propagate the failure so the job is marked red.
+      - name: Fail the job
+        if: steps.render.outputs.exit_code != '0'
+        run: exit "${{ steps.render.outputs.exit_code }}"
+
+      # ── 4b. On success: publish a GitHub Release with the PDF ─────────────
+      # The release tag encodes the date and run number for uniqueness.
+      - name: Create GitHub Release
+        if: steps.render.outputs.exit_code == '0'
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="resume-$(date -u +%Y-%m-%d)-run${{ github.run_number }}"
+          TITLE="Resume — $(date -u +%Y-%m-%d) (run #${{ github.run_number }})"
+
+          gh release create "$TAG" rendercv_output/*.pdf \
+            --title "$TITLE" \
+            --notes "Rendered from \`resume.yaml\` via [Actions run #${{ github.run_number }}](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "title=$TITLE" >> "$GITHUB_OUTPUT"
+
+      # ── 5. Write success summary ──────────────────────────────────────────
+      - name: Write success summary
+        if: steps.render.outputs.exit_code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          RELEASE_URL="${{ github.server_url }}/${{ github.repository }}/releases/tag/${{ steps.release.outputs.tag }}"
+          {
+            echo "## Resume rendered successfully"
+            echo ""
+            echo "**Release:** [${{ steps.release.outputs.title }}]($RELEASE_URL)"
+            echo ""
+            echo "Download the PDF from the release page linked above."
+          } >> "$GITHUB_STEP_SUMMARY"

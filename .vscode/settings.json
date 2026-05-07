@@ -1,0 +1,8 @@
+{
+  // Wire the RenderCV JSON schema to resume.yaml so the YAML extension
+  // provides autocompletion, hover docs, and inline validation.
+  // Requires the "YAML" extension by Red Hat (ext: redhat.vscode-yaml).
+  "yaml.schemas": {
+    "https://raw.githubusercontent.com/rendercv/rendercv/main/schema.json": "resume.yaml"
+  }
+}
