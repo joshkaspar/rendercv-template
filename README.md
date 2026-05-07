@@ -13,7 +13,7 @@ Click **"Use this template"** (the green button at the top of this page on GitHu
 
 ### 2. Edit `resume.yaml`
 
-Open `resume.yaml` in the GitHub file editor (or clone the repo). Replace the example content with your own information. The file is fully annotated with commented-out options for
+Open `resume.yaml` in the GitHub file editor (or the editor of your choice after cloning it locally). Replace the example content with your own information. The file is fully annotated with commented-out options for
 customising the layout, fonts, and colours.
 
 Detailed yaml documentation can be found at https://docs.rendercv.com
