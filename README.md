@@ -11,10 +11,12 @@ A GitHub template repository for rendering a professional PDF résumé from a YA
 
 Click **"Use this template"** (the green button at the top of this page on GitHub) and create your own repository.
 
+> [WARNING]
+> Don't forget to **make it private** — your resume.yaml will contain your phone number and email address, which you probably don't want out in the open and indexed by search engines.
+
 ### 2. Edit `resume.yaml`
 
-Open `resume.yaml` in the GitHub file editor (or the editor of your choice after cloning it locally). Replace the example content with your own information. The file is fully annotated with commented-out options for
-customising the layout, fonts, and colours.
+Open `resume.yaml` in the GitHub file editor (or the editor of your choice after cloning it locally). Replace the example content with your own information. The file is fully annotated with commented-out options for customising the layout, fonts, and colours.
 
 Detailed yaml documentation can be found at https://docs.rendercv.com
 
@@ -37,8 +39,7 @@ If you use a different editor, the `# yaml-language-server` comment at the top o
 
 ## Why this project exists
 
-On my first visit to [RenderCV.com](https://rendercv.com) I used my one PDF export as I was testing the tool out, not realizing that subsequent PDF downloads were paywalled. The tool is fully open source and available as a Python package, so I installed it locally and tweaked the output until I got it how I wanted it. But along the way, I noticed that 1.2k+ people had forked the original project, with the vast majority of those projects containing 0 code changes. 
-I think a lot of those users were hoping they would be able to generate some résumés once they forked the repository - maybe even from github itself. Or maybe some of them are like me, and they want to own the process in some way. So I made this template to make the process easier.
+On my first visit to [RenderCV.com](https://rendercv.com) I used my one free PDF export while testing the tool, not realizing subsequent exports were paywalled. The tool is fully open source, so I installed it locally and kept going — but I noticed that 1.2k+ people had forked the original repo with zero code changes. I think they were looking something like this.
 
 ## Why you should consider using rendercv.com instead
 
