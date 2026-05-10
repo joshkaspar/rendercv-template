@@ -20,6 +20,10 @@ Open `resume.yaml` in the GitHub file editor (or the editor of your choice after
 
 Detailed yaml documentation can be found at https://docs.rendercv.com
 
+> [!TIP]
+> Every time you edit the yaml file, or make any other change to the repo, and indicator at the top of the page will tell you if the changes you made were valid: 🟠=processing | 🟢=valid | ❌=error.  
+> A workflow (`lint.yml`) does a dry-run render to catch YAML errors early — if anything is wrong, the exact error output from RenderCV appears in the job summary in the **Actions** tab.
+
 ### 3. Trigger the workflow
 
 Go to the **Actions** tab → **Render Resume** → **Run workflow** → **Run workflow**.
@@ -31,10 +35,6 @@ When the run finishes, go to the **Releases** page. A new release named after to
 > [!IMPORTANT]
 > If the render fails, open the failed run in Actions and read the **job summary** — the exact error from RenderCV is printed in the summary.
 
-## Validation
-
-A second workflow (`lint.yml`) runs automatically on every push. It does a dry-run render to catch YAML errors early — if anything is wrong, the exact error output from RenderCV appears in the job summary in the Actions tab.
-
 ## Autocomplete in VSCode
 
 `.vscode/settings.json` is included and automatically wires up the RenderCV JSON schema for YAML autocompletion. Field names, types, and valid values will suggest inline as you type.
@@ -43,7 +43,7 @@ If you use a different editor, the `# yaml-language-server` comment at the top o
 
 ## Why this project exists
 
-I noticed that 1.2k+ people had forked [RenderCV.com](https://rendercv.com) - most with zero code changes. I think they were looking for a way to render a résumé in the cloud, only to find the main repository is a software library. This template is a missing link for those users.
+I noticed that 1.2k+ people had forked [rendercv](https://github.com/rendercv/rendercv) - most with zero code changes. I think they were looking for a way to render a résumé in the cloud, only to find the main repository is a software library. This template is a missing link for those users.
 
 ## Why you should consider using rendercv.com instead
 
