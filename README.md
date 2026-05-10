@@ -21,7 +21,7 @@ Open `resume.yaml` in the GitHub file editor (or the editor of your choice after
 Detailed yaml documentation can be found at https://docs.rendercv.com
 
 > [!TIP]
-> Every time you edit the yaml file, or make any other change to the repo, and indicator at the top of the page will tell you if the changes you made were valid: 🟠=processing | 🟢=valid | ❌=error.  
+> Every time you edit the yaml file or make any other change to the repo, the indicator at the top of the page will tell you if the changes you made were valid: 🟠=processing | 🟢=valid | ❌=error.  
 > A workflow (`lint.yml`) does a dry-run render to catch YAML errors early — if anything is wrong, the exact error output from RenderCV appears in the job summary in the **Actions** tab.
 
 ### 3. Trigger the workflow
