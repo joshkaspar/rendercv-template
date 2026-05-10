@@ -31,6 +31,10 @@ When the run finishes, go to the **Releases** page. A new release named after to
 > [!IMPORTANT]
 > If the render fails, open the failed run in Actions and read the **job summary** — the exact error from RenderCV is printed in the summary.
 
+## Validation
+
+A second workflow (`lint.yml`) runs automatically on every push. It does a dry-run render to catch YAML errors early — if anything is wrong, the exact error output from RenderCV appears in the job summary in the Actions tab.
+
 ## Autocomplete in VSCode
 
 `.vscode/settings.json` is included and automatically wires up the RenderCV JSON schema for YAML autocompletion. Field names, types, and valid values will suggest inline as you type.
