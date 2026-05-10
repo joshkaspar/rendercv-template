@@ -2,9 +2,6 @@ name: Lint and Validate
 
 on:
   push:
-    branches-ignore: [main]
-  pull_request:
-    branches: [main]
 
 jobs:
   validate:
