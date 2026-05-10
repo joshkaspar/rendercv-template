@@ -29,7 +29,7 @@ Go to the **Actions** tab → **Render Resume** → **Run workflow** → **Run w
 When the run finishes, go to the **Releases** page. A new release named after today's date will contain your rendered PDF.
 
 > [!IMPORTANT]
-> If the render fails, open the failed run in Actions and read the **job summary** — the exact error from RenderCV is print
+> If the render fails, open the failed run in Actions and read the **job summary** — the exact error from RenderCV is printed in the summary.
 
 ## Autocomplete in VSCode
 
@@ -39,7 +39,7 @@ If you use a different editor, the `# yaml-language-server` comment at the top o
 
 ## Why this project exists
 
-On my first visit to [RenderCV.com](https://rendercv.com) I used my one free PDF export while testing the tool, not realizing subsequent exports were paywalled. The tool is fully open source, so I installed it locally and kept going — but I noticed that 1.2k+ people had forked the original repo with zero code changes. I think they were looking something like this.
+I noticed that 1.2k+ people had forked [RenderCV.com](https://rendercv.com) - most with zero code changes. I think they were looking for a way to render a résumé in the cloud, only to find the main repository is a software library. This template is a missing link for those users.
 
 ## Why you should consider using rendercv.com instead
 
