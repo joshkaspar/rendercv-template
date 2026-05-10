@@ -1,0 +1,61 @@
+name: Lint and Validate
+
+on:
+  push:
+    branches-ignore: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate resume.yaml
+    runs-on: ubuntu-latest
+
+    steps:
+      # ── 1. Check out the repo ──────────────────────────────────────────────
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # ── 2. Install RenderCV ───────────────────────────────────────────────
+      - name: Install RenderCV
+        run: pipx install "rendercv[full]"
+
+      # ── 3. Dry-run render ─────────────────────────────────────────────────
+      # We only care whether the YAML is valid — the output artifacts are
+      # discarded. `set +e` lets us capture the exit code and write a useful
+      # summary before propagating the failure.
+      - name: Dry-run render
+        id: dry_run
+        run: |
+          set +e
+          rendercv render resume.yaml > lint_output.txt 2>&1
+          echo "exit_code=$?" >> "$GITHUB_OUTPUT"
+
+      # ── 4a. On failure: surface the error in the job summary ──────────────
+      - name: Write failure summary
+        if: steps.dry_run.outputs.exit_code != '0'
+        run: |
+          {
+            echo "## Validation failed"
+            echo ""
+            echo "RenderCV found issues in \`resume.yaml\`. Fix these before merging or releasing."
+            echo ""
+            echo "### Error output"
+            echo '```text'
+            cat lint_output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 4b. On success: confirm in the summary ────────────────────────────
+      - name: Write success summary
+        if: steps.dry_run.outputs.exit_code == '0'
+        run: |
+          {
+            echo "## Validation passed"
+            echo ""
+            echo "\`resume.yaml\` is valid and ready to render."
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      # ── 5. Propagate exit code so the check goes red on failure ───────────
+      - name: Exit with render status
+        run: exit "${{ steps.dry_run.outputs.exit_code }}"
